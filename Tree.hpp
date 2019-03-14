@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 
-using namespace std;
+namespace ariel{
 
 
 class Node {
@@ -64,40 +64,40 @@ class Tree {
 	    insertLocal(toInsert, localRoot->getLeft());
 	}
 	else
-	  std::cout << "There is a duplication!" << endl;//change to: throw exception!!!
+	  std::cout << "There is a duplication!" << std::endl;//change to: throw exception!!!
     }
 
     //based on: stackoverflow.com/questions/40582699
     void printTree(Node *localRoot, int level){
 	if (localRoot != 0){
 	  if (level)
-	    cout << setw(4*level) << ' ';
-	  cout << localRoot->getData() << endl;
+	    std::cout << std::setw(4*level) << ' ';
+	  std::cout << localRoot->getData() << std::endl;
 	  if (localRoot->getLeft()){
-	    cout << 'L';
+	    std::cout << 'L';
 	    printTree(localRoot->getLeft(), level+1);
 	  }
 	  if (localRoot->getRight()){
-	    cout << 'R';
+	    std::cout << 'R';
 	    printTree(localRoot->getRight(), level+1);
 	  }
 	}
     }
 
     Node* findFollow(Node* localRoot){
-	if (localRoot == 0)
+	if (localRoot == NULL)
+	  return 0;
+	if (localRoot->getRight() == NULL) //not exist right chils
 	  return 0;
 	Node *nodePtr = localRoot->getRight();
-	if (right == 0)
-	  return 0;
-	while (nodePtr->getLeft() != 0){ //while exist left child
+	while (nodePtr->getLeft()){ //while exist left child
 	  nodePtr = nodePtr->getLeft();
 	}
 	return nodePtr;
     }
 
   public:
-    void insert(int i){
+    Tree& insert(int i){
 	Node *toInsert = new Node(i);
 	if (_root==0){
 	  _root = toInsert;
@@ -105,6 +105,7 @@ class Tree {
 	}
 	else
 	  insertLocal(toInsert, _root);
+	return *this;
     }
 
     void remove(int i){
@@ -116,9 +117,9 @@ class Tree {
 	if (toRemove->isLeaf()){ //the node to remove is leaf
 	  if (parentOf != 0){
 	    if (parentOf->getRight() == toRemove) //remove right child
-		parentOf->setRight(0)
+		parentOf->setRight(0);
 	    else //remove left child
-		parentOf->setLeft(0)
+		parentOf->setLeft(0);
 	  }
 	}
 
@@ -141,7 +142,7 @@ class Tree {
    int size() {	return _size;}
    int root() {
 	if (_root==0)
-	  std::cout << "The root is NULL" << endl;//change to: throw exception!!!
+	  std::cout << "The root is NULL" << std::endl;//change to: throw exception!!!
 	return _root->getData();
    }
 
@@ -177,4 +178,4 @@ class Tree {
   void print(){ printTree(_root, 0); }
 
 };
-
+}

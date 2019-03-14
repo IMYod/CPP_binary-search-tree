@@ -1,5 +1,6 @@
 #include "Tree.hpp"
 
+using namespace ariel;
 
 int main() {
 
@@ -18,19 +19,19 @@ int main() {
 
 	for (int i=1; i<12; i++){
 	if (t.contains(i)){
-		cout << "parent("<< i <<")=" << t.parent(i) << "\t";	
-		cout << "left("<< i <<")=" << t.left(i) << "\t";	
-		cout << "right("<< i <<")=" << t.right(i) << endl;	
+		std::cout << "parent("<< i <<")=" << t.parent(i) << "\t";	
+		std::cout << "left("<< i <<")=" << t.left(i) << "\t";	
+		std::cout << "right("<< i <<")=" << t.right(i) << std::endl;	
 //		std::cout << "contains " << i << endl;
 	}
 	else
-		std::cout << "not contains " << i << endl;
+		std::cout << "not contains " << i << std::endl;
 	}
 
 
 
-	cout << "size=" << t.size() << endl;
-	cout << "root=" << t.root() << endl;
+	std::cout << "size=" << t.size() << std::endl;
+	std::cout << "root=" << t.root() << std::endl;
 	
 
 	return 0;
