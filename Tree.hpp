@@ -96,7 +96,19 @@ class Tree {
 	return nodePtr;
     }
 
+    void deleteNode(Node* ptr){
+      if (ptr){
+	deleteNode(ptr->getLeft());
+	deleteNode(ptr->getRight());
+	delete(ptr);
+      }
+    }
+
   public:
+    ~Tree() {
+      deleteNode(_root);
+    }
+
     Tree& insert(int i){
 	Node *toInsert = new Node(i);
 	if (_root==0){
@@ -108,10 +120,10 @@ class Tree {
 	return *this;
     }
 
-    void remove(int i){
+    Tree& remove(int i){
 	Node *toRemove = find(i, _root);
 	if (toRemove == 0) //The number "i" don't exist
-	  return; //change to: throw exception!!!
+	  return *this; //change to: throw exception!!!
 	Node *parentOf = toRemove->getParent();
 
 	if (toRemove->isLeaf()){ //the node to remove is leaf
@@ -128,11 +140,10 @@ class Tree {
 	    parentOf->setLeft(toRemove->getLeft());
 	  toRemove->getLeft()->setParent(parentOf);
 	}
-
 	else{
-	  Node *next = findFollow(toRemove);
-	  
+	  Node *next = findFollow(toRemove);	  
 	}
+      return *this; //never happen
     }
 
     bool contains(int i){
