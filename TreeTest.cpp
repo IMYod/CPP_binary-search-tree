@@ -15,9 +15,12 @@ int main() {
   ariel::Tree emptytree;
   ariel::Tree threetree; 
   ariel::Tree rightTree;
+  ariel::Tree atbashTree;
 
   threetree.insert(5).insert(3).insert(7);
   rightTree.insert(1).insert(2).insert(3).insert(4).insert(5);
+  atbashTree.insert(1).insert(7).insert(2).insert(6).insert(3).insert(5).insert(4);
+  
   
   badkan::TestCase tc("Binary tree");
   tc
@@ -57,6 +60,35 @@ int main() {
   .CHECK_THROWS(rightTree.contains(1))
   .CHECK_OK    (rightTree.print())
   
+  .CHECK_OK (atbashTree.remove(1))
+  .CHECK_THROWS(atbashTree.contains(1))
+  .CHECK_EQUAL(atbashTree.parent(2), 7)
+  .CHECK_EQUAL(atbashTree.right(2), 6)
+  .CHECK_EQUAL(atbashTree.right(2), 0)
+  .CHECK_OK (atbashTree.remove(7))
+  .CHECK_THROWS(atbashTree.contains(7))
+  .CHECK_EQUAL(atbashTree.right(2), 6)
+  .CHECK_OK (atbashTree.remove(5))
+  .CHECK_EQUAL(atbashTree.parent(3), 6)
+  .CHECK_OK (atbashTree.remove(4))
+  .CHECK_OK (atbashTree.remove(3))
+  .CHECK_OK (atbashTree.remove(6))  
+  .CHECK_OK (atbashTree.remove(2))
+  .CHECK_THROWS(atbashTree.contains(4))
+  .CHECK_THROWS(atbashTree.contains(3))
+  .CHECK_THROWS(atbashTree.contains(6))
+  .CHECK_THROWS(atbashTree.contains(2))
+  .CHECK_EQUAL (atbashTree.size(), 0)
+  .CHECK_OK (atbashTree.insert(100))
+  .CHECK_EQUAL (atbashTree.size(), 1)
+  .CHECK_EQUAL(atbashTree.right(100), 0)
+  .CHECK_EQUAL(atbashTree.left(100), 0)
+  .CHECK_EQUAL(atbashTree.parent(100), 0)
+  .print(atbashTree())
+
+  
+
+
 
 
 
