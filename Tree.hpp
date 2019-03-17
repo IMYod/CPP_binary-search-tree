@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 namespace ariel{
 
@@ -20,6 +21,7 @@ class Node {
   void setParent(Node* p) {parent = p;}
   void setRight(Node* r) {right = r;}
   void setLeft(Node* l) {left = l;}
+  void setData(int i) {data = i;}
 
   Node* getParent() {return parent;}
   Node* getRight() {return right;}
@@ -64,7 +66,7 @@ class Tree {
 	    insertLocal(toInsert, localRoot->getLeft());
 	}
 	else
-	  std::cout << "There is a duplication!" << std::endl;//change to: throw exception!!!
+	  throw std::string("The number " + std::to_string(toInsert->getData()) + "already exists in the tree");
     }
 
     //based on: stackoverflow.com/questions/40582699
@@ -82,18 +84,6 @@ class Tree {
 	    printTree(localRoot->getRight(), level+1);
 	  }
 	}
-    }
-
-    Node* findFollow(Node* localRoot){
-	if (localRoot == NULL)
-	  return 0;
-	if (localRoot->getRight() == NULL) //not exist right chils
-	  return 0;
-	Node *nodePtr = localRoot->getRight();
-	while (nodePtr->getLeft()){ //while exist left child
-	  nodePtr = nodePtr->getLeft();
-	}
-	return nodePtr;
     }
 
     void deleteNode(Node* ptr){
@@ -122,28 +112,64 @@ class Tree {
 
     Tree& remove(int i){
 	Node *toRemove = find(i, _root);
-	if (toRemove == 0) //The number "i" don't exist
-	  return *this; //change to: throw exception!!!
+	if (toRemove == NULL) //The number "i" don't exist
+	  throw std::string("The number " + std::to_string(i) + "don't exists in the tree");
 	Node *parentOf = toRemove->getParent();
 
 	if (toRemove->isLeaf()){ //the node to remove is leaf
-	  if (parentOf != 0){
+	  if (parentOf != NULL){
 	    if (parentOf->getRight() == toRemove) //remove right child
-		parentOf->setRight(0);
+		parentOf->setRight(NULL);
 	    else //remove left child
-		parentOf->setLeft(0);
+		parentOf->setLeft(NULL);
+	  }
+	  else
+	    _root = NULL; //delete the single node
+	}
+
+	else if (toRemove->getRight()==NULL){ //no right child to the removed node
+	  toRemove->getLeft()->setParent(parentOf);
+	  if (parentOf != NULL){
+	    if (parentOf->getRight() == toRemove) //remove right child
+		parentOf->setRight(toRemove->getLeft());
+	    else //remove left child
+		parentOf->setLeft(toRemove->getLeft());
+	  }
+	  else{ //remove the root
+	    _root = toRemove->getLeft(); 
 	  }
 	}
 
-	else if (toRemove->getRight()==0){ //no right child to the removed node
-	  if (parentOf != 0)
-	    parentOf->setLeft(toRemove->getLeft());
-	  toRemove->getLeft()->setParent(parentOf);
+	else if (toRemove->getLeft()==NULL){ //no right child to the removed node
+	  toRemove->getRight()->setParent(parentOf);
+	  if (parentOf != NULL){
+	    if (parentOf->getLeft() == toRemove) //remove right child
+		parentOf->setLeft(toRemove->getRight());
+	    else //remove left child
+		parentOf->setRight(toRemove->getRight());
+	  }
+	  else { //remove the root
+	    _root = toRemove->getRight(); 
+	  }
 	}
-	else{
-	  Node *next = findFollow(toRemove);	  
+
+	else { //the removed node has 2 childs
+	  Node *next = toRemove->getRight(); //find successor
+	  while (next->getLeft()) //while exist left child
+	    next = next->getLeft();
+	  toRemove->setData(next->getData());
+
+	  toRemove = next; //remove next
+	  parentOf = toRemove->getParent();
+	  Node *rightC = toRemove->getRight();
+	    parentOf->setLeft(rightC);
+	  if (rightC != NULL)
+	    rightC->setParent(parentOf);
 	}
-      return *this; //never happen
+	
+	_size--;
+	delete(toRemove);
+	return *this;
     }
 
     bool contains(int i){
@@ -152,37 +178,37 @@ class Tree {
 
    int size() {	return _size;}
    int root() {
-	if (_root==0)
-	  std::cout << "The root is NULL" << std::endl;//change to: throw exception!!!
+	if (_root==NULL)
+	  throw std::string("The root is NULL");
 	return _root->getData();
    }
 
   int parent(int i) {
 	if (i==root())
-	  return 0; //exception!!!;
+	  throw; //exception!!!;
 	Node *member = find(i, _root);
 	if (member==0)
-	  return 0; //exception!!!;
+	  throw; //exception!!!;
 	return (member->getParent())->getData();
   }
 
   int right(int i) {
 	Node *member = find(i, _root);
 	if (member==0)
-	  return 0; //exception!!!;
+	  throw; //exception!!!;
 	Node *theRight = member->getRight();
 	if (theRight==0)
-	  return 0; //exception!!!;
+	  throw; //exception!!!;
 	return theRight->getData();
   }
 
   int left(int i) {
 	Node *member = find(i, _root);
 	if (member==0)
-	  return 0; //exception!!!;
+	  throw; //exception!!!;
 	Node *theLeft = member->getLeft();
 	if (theLeft==0)
-	  return 0; //exception!!!;
+	  throw; //exception!!!;
 	return theLeft->getData();
   }
 
