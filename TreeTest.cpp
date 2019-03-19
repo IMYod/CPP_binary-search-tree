@@ -84,7 +84,7 @@ int main() {
   .CHECK_EQUAL(atbashTree.right(100), 0)
   .CHECK_EQUAL(atbashTree.left(100), 0)
   .CHECK_EQUAL(atbashTree.parent(100), 0)
-  .print(atbashTree())
+  .CHECK_OK(atbashTree.print())
 
   
 
