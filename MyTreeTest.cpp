@@ -16,14 +16,17 @@ int main() {
   ariel::Tree threetree; 
   ariel::Tree rightTree;
   ariel::Tree atbashTree;
+  ariel::Tree fullTree;
 
   threetree.insert(5).insert(3).insert(7);
   rightTree.insert(1).insert(2).insert(3).insert(4).insert(5);
   atbashTree.insert(1).insert(7).insert(2).insert(6).insert(3).insert(5).insert(4);
-  
+  fullTree.insert(20).insert(10).insert(30).insert(5).insert(15).insert(25).insert(40)
+  .insert(1).insert(6).insert(11).insert(16).insert(21).insert(26).insert(31).insert(46);  
   
   badkan::TestCase tc("Binary tree");
   tc
+  /* Empty tree test */
   .CHECK_EQUAL (emptytree.size(), 0)
   .CHECK_OK    (emptytree.insert(5))
   .CHECK_EQUAL (emptytree.size(), 1)
@@ -32,6 +35,7 @@ int main() {
   .CHECK_THROWS(emptytree.remove(5))
   .CHECK_EQUAL (emptytree.size() ,0)
   
+  /* Three tree tests*/
   .CHECK_EQUAL (threetree.size(), 3)
   .CHECK_EQUAL (threetree.root(), 5)
   .CHECK_EQUAL (threetree.parent(3), 5)
@@ -41,6 +45,7 @@ int main() {
   .CHECK_THROWS(threetree.insert(3))
   .CHECK_OK    (threetree.print())
   
+  /* Right tree tests*/
   .CHECK_EQUAL (rightTree.size(), 5)
   .CHECK_EQUAL (rightTree.root(), 1)
   .CHECK_EQUAL (rightTree.right(3), 4)
@@ -60,14 +65,15 @@ int main() {
   .CHECK_EQUAL (rightTree.size(), 0)
   .CHECK_THROWS(rightTree.contains(1))
   .CHECK_OK    (rightTree.print())
-  
+
+  /* Atbash tree tests*/
   .CHECK_OK (atbashTree.remove(1))
-  .CHECK_THROWS(atbashTree.contains(1))
+  .CHECK_THROWS(atbashTree.remove(1))
   .CHECK_EQUAL(atbashTree.parent(2), 7)
   .CHECK_EQUAL(atbashTree.right(2), 6)
   .CHECK_EQUAL(atbashTree.right(2), 0)
   .CHECK_OK (atbashTree.remove(7))
-  .CHECK_THROWS(atbashTree.contains(7))
+  .CHECK_THROWS(atbashTree.remove(7))
   .CHECK_EQUAL(atbashTree.right(2), 6)
   .CHECK_OK (atbashTree.remove(5))
   .CHECK_EQUAL(atbashTree.parent(3), 6)
@@ -75,10 +81,14 @@ int main() {
   .CHECK_OK (atbashTree.remove(3))
   .CHECK_OK (atbashTree.remove(6))  
   .CHECK_OK (atbashTree.remove(2))
-  .CHECK_THROWS(atbashTree.contains(4))
-  .CHECK_THROWS(atbashTree.contains(3))
-  .CHECK_THROWS(atbashTree.contains(6))
-  .CHECK_THROWS(atbashTree.contains(2))
+  .CHECK_THROWS (atbashTree.remove(4))
+  .CHECK_THROWS (atbashTree.remove(3))
+  .CHECK_THROWS (atbashTree.remove(6))  
+  .CHECK_THROWS (atbashTree.remove(2))
+  .CHECK_EQUAL (atbashTree.contains(4), false)
+  .CHECK_EQUAL (atbashTree.contains(3), false)
+  .CHECK_EQUAL (atbashTree.contains(6), false)  
+  .CHECK_EQUAL (atbashTree.contains(2), false)
   .CHECK_EQUAL (atbashTree.size(), 0)
   .CHECK_OK (atbashTree.insert(100))
   .CHECK_EQUAL (atbashTree.size(), 1)
@@ -87,8 +97,40 @@ int main() {
   .CHECK_EQUAL(atbashTree.parent(100), 0)
   .CHECK_OK(atbashTree.print())
 
-  
+  /* Full tree tests*/
+  .CHECK_EQUAL (fullTree.size(), 15) 
+  .check_equal (fullTree.root, 20)
+  .check_ok (fullTree.remove(40)) // remove node 40
+  .check_equal (fullTree.parent(46), 31)
+  .check_equal (fullTree.parent(31), 30)
+  .check_equal (fullTree.left(31), 0)
+  .check_throws (fullTree.remove(40))
+  .CHECK_EQUAL (fullTree.contains(10), false)  
+  .check_ok (fullTree.remove(10)) // remove node 10
+  .check_equal (fullTree.parent(5), 6)
+  .check_equal (fullTree.parent(15), 6)
+  .check_equal (fullTree.parent(1), 5)
+  .check_equal (fullTree.right(5), 0)
+  .check_throws (fullTree.remove(10))
+  .CHECK_EQUAL (fullTree.contains(10), false)
+  .check_equal (fullTree.right(16), 0)
+  .check_equal (fullTree.left(16), 0)
+  .check_ok (fullTree.remove(20)) // remove root 
+  .check_equal (fullTree.root, 16)
+  .check_equal (fullTree.right(16), 30)
+  .check_equal (fullTree.left(16), 6)
+  .check_equal (fullTree.right(15), 0)
+  .check_equal (fullTree.left(15), 11)
+  .check_throws (fullTree.remove(20))
+  .CHECK_EQUAL (fullTree.contains(10), false)
+  .check_ok (fullTree.insert(50)) // insert a new node 
+  .check_throws (fullTree.insert(50))
+  .check_equal (fullTree.right(46), 50)
+  .check_equal (fullTree.left(46), 0)
+  .CHECK_EQUAL (fullTree.size(), 13)
+  .CHECK_OK(fullTree.print()) // print
 
+  
 
 
 
