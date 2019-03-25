@@ -1,5 +1,5 @@
 # CPP_binary-search-tree
-CPP-EX1
+CPP-EX2
 
 יואב גרוס
 אלעד נביאי
