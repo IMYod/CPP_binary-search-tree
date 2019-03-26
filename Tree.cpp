@@ -1,7 +1,10 @@
 #include "Tree.hpp"
 
 using namespace ariel;
-
+ /*
+ * 
+ * 
+ */
     Node* Tree::find(int toFind, Node* localRoot){
       if (localRoot==0)
 	return 0;
@@ -32,7 +35,7 @@ using namespace ariel;
 	    insertLocal(toInsert, localRoot->getLeft());
 	}
 	else
-	  throw std::string("The number " + std::to_string(toInsert->getData()) + "already exists in the tree");
+	  throw std::string("The number " + std:: to_string(toInsert->getData()) + "already exists in the tree");
     }
 
     //based on: stackoverflow.com/questions/40582699
@@ -74,7 +77,7 @@ using namespace ariel;
     Tree& Tree::remove(int i){
 	Node *toRemove = find(i, _root);
 	if (toRemove == NULL) //The number "i" don't exist
-	  throw std::string("The number " + std::to_string(i) + "don't exists in the tree");
+	  throw std::string("The number " + std:: to_string(i) + "don't exists in the tree");
 	Node *parentOf = toRemove->getParent();
 
 	if (toRemove->isLeaf()){ //the node to remove is leaf

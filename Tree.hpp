@@ -1,3 +1,9 @@
+/*
+* This is a header file for BST 
+* This file is part of task in Cpp course
+*
+* @author Yoav and Elad
+*/
 #pragma once
 #include <iostream>
 #include <iomanip>
@@ -5,7 +11,14 @@
 
 namespace ariel{
 
-
+/*
+* This class represnt a nodes of the tree
+* each node have a 
+* 1. Data
+* 2. Pointer to his parent 
+* 3. Pointer to his right son
+* 4. Pointer to his left son.
+*/
 class Node {
   private:	
     int data;
@@ -19,6 +32,8 @@ class Node {
     left = 0;
   }
 
+/********Getters and Setters*********/
+
   void setParent(Node* p) {parent = p;}
   void setRight(Node* r) {right = r;}
   void setLeft(Node* l) {left = l;}
@@ -29,8 +44,15 @@ class Node {
   Node* getLeft() {return left;}
   int getData() {return data;}
 
+/* This functions returns true if the node is leaf*/
+
   bool isLeaf() {return (right==0 && left==0);}
 };
+
+/* This is The BST class
+* for more info go to the link below:
+*https://en.wikipedia.org/wiki/Binary_search_tree
+*/
 
 class Tree {
 
@@ -44,9 +66,9 @@ class Tree {
     void printTree(Node *localRoot, int level);
 
     void deleteNode(Node* ptr);
-    ~Tree() { deleteNode(_root); }
+    ~Tree() { deleteNode(_root); } //destructor
 
-    Tree& insert(int i);
+    Tree& insert(int i); 
 
     Tree& remove(int i);
 
