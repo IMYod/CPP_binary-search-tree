@@ -75,9 +75,6 @@ using namespace ariel;
     }
 
     Tree& Tree::remove(int i){ 
-	std::cout << std::endl;
-	print();
-	std::cout << "going to remove " << i << std::endl;
 	Node *toRemove = find(i, _root);
 	if (toRemove == NULL) //The number "i" don't exist
 	  throw std::string("The number " + std:: to_string(i) + " doesn't exists in the tree");
@@ -125,8 +122,8 @@ using namespace ariel;
 	  bool the_next_is_right = (next->getLeft()==NULL);
 	  while (next->getLeft()) //while exist left child
 	    next = next->getLeft();
-	  toRemove->setData(next->getData());
 	  remove(next->getData()); //now we should remove next
+	  toRemove->setData(next->getData());
 	  _size++; //In the recursive function we already reduced the size
 	}
 	
