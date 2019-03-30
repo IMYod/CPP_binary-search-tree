@@ -144,30 +144,30 @@ using namespace ariel;
 
   int Tree::parent(int i) {
 	if (i==root())
-	  throw; //exception!!!;
+	  throw std::string("The number " + std:: to_string(i) + "have no parent");
 	Node *member = find(i, _root);
 	if (member==0)
-	  throw; //exception!!!;
+	  throw std::string("The number " + std:: to_string(i) + "have no parent");
 	return (member->getParent())->getData();
   }
 
   int Tree::right(int i) {
 	Node *member = find(i, _root);
 	if (member==0)
-	  throw; //exception!!!;
+	  throw std::string("The number " + std:: to_string(i) + "have no right");
 	Node *theRight = member->getRight();
 	if (theRight==0)
-	  throw; //exception!!!;
+	  throw std::string("The number " + std:: to_string(i) + "have no right");
 	return theRight->getData();
   }
 
   int Tree::left(int i) {
 	Node *member = find(i, _root);
 	if (member==0)
-	  throw; //exception!!!;
+	  throw std::string("The number " + std:: to_string(i) + "have no left");
 	Node *theLeft = member->getLeft();
 	if (theLeft==0)
-	  throw; //exception!!!;
+	  throw std::string("The number " + std:: to_string(i) + "have no left");
 	return theLeft->getData();
   }
 
