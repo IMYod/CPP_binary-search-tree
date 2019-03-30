@@ -89,6 +89,8 @@ using namespace ariel;
 	  }
 	  else
 	    _root = NULL; //delete the single node
+	_size--;
+	delete(toRemove);
 	}
 
 	else if (toRemove->getRight()==NULL){ //no right child to the removed node
@@ -102,6 +104,8 @@ using namespace ariel;
 	  else{ //remove the root
 	    _root = toRemove->getLeft(); 
 	  }
+	_size--;
+	delete(toRemove);
 	}
 
 	else if (toRemove->getLeft()==NULL){ //no right child to the removed node
@@ -115,6 +119,8 @@ using namespace ariel;
 	  else { //remove the root
 	    _root = toRemove->getRight(); 
 	  }
+	_size--;
+	delete(toRemove);
 	}
 
 	else { //the removed node has 2 childs
@@ -124,11 +130,8 @@ using namespace ariel;
 	  int nextData = next->getData();
 	  remove(nextData); //now we should remove next
 	  toRemove->setData(nextData);
-	  _size++; //In the recursive function we already reduced the size
 	}
 	
-	_size--;
-	delete(toRemove);
 	return *this;
     }
 
