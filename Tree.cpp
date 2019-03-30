@@ -119,11 +119,11 @@ using namespace ariel;
 
 	else { //the removed node has 2 childs
 	  Node *next = toRemove->getRight(); //find successor
-	  bool the_next_is_right = (next->getLeft()==NULL);
 	  while (next->getLeft()) //while exist left child
 	    next = next->getLeft();
-	  remove(next->getData()); //now we should remove next
-	  toRemove->setData(next->getData());
+	  int nextData = next->getData();
+	  remove(nextData); //now we should remove next
+	  toRemove->setData(nextData);
 	  _size++; //In the recursive function we already reduced the size
 	}
 	
