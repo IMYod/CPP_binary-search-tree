@@ -6,8 +6,8 @@ using namespace ariel;
  * 
  */
     Node* Tree::find(int toFind, Node* localRoot){
-      if (localRoot==0)
-	return 0;
+      if (localRoot==NULL)
+	return NULL;
       if (toFind > localRoot->getData())
 	return find(toFind, localRoot->getRight());
       else if (toFind < localRoot->getData())
@@ -17,7 +17,7 @@ using namespace ariel;
 
     void Tree::insertLocal(Node* toInsert, Node* localRoot){
 	if (toInsert->getData() > localRoot->getData()){
-	  if (localRoot->getRight() == 0){
+	  if (localRoot->getRight() == NULL){
 	    _size++;
 	    localRoot->setRight(toInsert);
 	    toInsert->setParent(localRoot);
@@ -26,7 +26,7 @@ using namespace ariel;
 	    insertLocal(toInsert, localRoot->getRight());
 	}
 	else if (toInsert->getData() < localRoot->getData()){
-	  if (localRoot->getLeft() == 0){
+	  if (localRoot->getLeft() == NULL){
 	    _size++;
 	    localRoot->setLeft(toInsert);
 	    toInsert->setParent(localRoot);
@@ -35,12 +35,12 @@ using namespace ariel;
 	    insertLocal(toInsert, localRoot->getLeft());
 	}
 	else
-	  throw std::string("The number " + std:: to_string(toInsert->getData()) + "already exists in the tree");
+	  throw std::string("The number " + std:: to_string(toInsert->getData()) + " already exists in the tree");
     }
 
     //based on: stackoverflow.com/questions/40582699
     void Tree::printTree(Node *localRoot, int level){
-	if (localRoot != 0){
+	if (localRoot != NULL){
 	  if (level)
 	    std::cout << std::setw(4*level) << ' ';
 	  std::cout << localRoot->getData() << std::endl;
@@ -65,7 +65,7 @@ using namespace ariel;
 
     Tree& Tree::insert(int i){
 	Node *toInsert = new Node(i);
-	if (_root==0){
+	if (_root==NULL){
 	  _root = toInsert;
 	  _size++;
 	}
@@ -75,9 +75,10 @@ using namespace ariel;
     }
 
     Tree& Tree::remove(int i){ 
+	print();
 	Node *toRemove = find(i, _root);
 	if (toRemove == NULL) //The number "i" don't exist
-	  throw std::string("The number " + std:: to_string(i) + "don't exists in the tree");
+	  throw std::string("The number " + std:: to_string(i) + " doesn't exists in the tree");
 	Node *parentOf = toRemove->getParent();
 
 	if (toRemove->isLeaf()){ //the node to remove is leaf
@@ -146,27 +147,27 @@ using namespace ariel;
 	if (i==root())
 	  throw std::string("The number " + std:: to_string(i) + "have no parent");
 	Node *member = find(i, _root);
-	if (member==0)
+	if (member==NULL)
 	  throw std::string("The number " + std:: to_string(i) + "have no parent");
 	return (member->getParent())->getData();
   }
 
   int Tree::right(int i) {
 	Node *member = find(i, _root);
-	if (member==0)
+	if (member==NULL)
 	  throw std::string("The number " + std:: to_string(i) + "have no right");
 	Node *theRight = member->getRight();
-	if (theRight==0)
+	if (theRight==NULL)
 	  throw std::string("The number " + std:: to_string(i) + "have no right");
 	return theRight->getData();
   }
 
   int Tree::left(int i) {
 	Node *member = find(i, _root);
-	if (member==0)
+	if (member==NULL)
 	  throw std::string("The number " + std:: to_string(i) + "have no left");
 	Node *theLeft = member->getLeft();
-	if (theLeft==0)
+	if (theLeft==NULL)
 	  throw std::string("The number " + std:: to_string(i) + "have no left");
 	return theLeft->getData();
   }
