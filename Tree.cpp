@@ -75,8 +75,9 @@ using namespace ariel;
     }
 
     Tree& Tree::remove(int i){ 
+	std::cout << std::endl;
 	print();
-	std::cout << "going to remove " << i;
+	std::cout << "going to remove " << i << std::endl;
 	Node *toRemove = find(i, _root);
 	if (toRemove == NULL) //The number "i" don't exist
 	  throw std::string("The number " + std:: to_string(i) + " doesn't exists in the tree");
