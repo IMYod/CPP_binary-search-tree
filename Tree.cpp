@@ -122,16 +122,12 @@ using namespace ariel;
 
 	else { //the removed node has 2 childs
 	  Node *next = toRemove->getRight(); //find successor
+	  bool the_next_is_right = (next->getLeft()==NULL);
 	  while (next->getLeft()) //while exist left child
 	    next = next->getLeft();
 	  toRemove->setData(next->getData());
-
-	  toRemove = next; //remove next
-	  parentOf = toRemove->getParent();
-	  Node *rightC = toRemove->getRight();
-	    parentOf->setLeft(rightC);
-	  if (rightC != NULL)
-	    rightC->setParent(parentOf);
+	  remove(next->getData()); //now we should remove next
+	  _size++; //In the recursive function we already reduced the size
 	}
 	
 	_size--;
