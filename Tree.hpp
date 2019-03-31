@@ -32,21 +32,21 @@ class Node {
     left = 0;
   }
 
-/********Getters and Setters*********/
+/*********Getters and Setters**********/
 
   void setParent(Node* p) {parent = p;}
   void setRight(Node* r) {right = r;}
   void setLeft(Node* l) {left = l;}
   void setData(int i) {data = i;}
 
-  Node* getParent() {return parent;}
-  Node* getRight() {return right;}
-  Node* getLeft() {return left;}
-  int getData() {return data;}
+  Node* getParent() const {return parent;}
+  Node* getRight() const {return right;}
+  Node* getLeft() const {return left;}
+  int getData() const {return data;}
 
 /* This functions returns true if the node is leaf*/
 
-  bool isLeaf() {return (right==0 && left==0);}
+  bool isLeaf() const {return (right==0 && left==0);}
 };
 
 /* This is The BST class
@@ -56,7 +56,7 @@ class Node {
 
 class Tree {
 
-    Node* _root = 0;
+    Node* _root = NULL;
     int _size=0;
 
   public:

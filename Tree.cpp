@@ -143,30 +143,30 @@ using namespace ariel;
 
   int Tree::parent(int i) {
 	if (i==root())
-	  throw std::string("The number " + std:: to_string(i) + "have no parent");
+	  throw std::string("The number " + std:: to_string(i) + " have no parent");
 	Node *member = find(i, _root);
 	if (member==NULL)
-	  throw std::string("The number " + std:: to_string(i) + "have no parent");
+	  throw std::string("The number " + std:: to_string(i) + " have no parent");
 	return (member->getParent())->getData();
   }
 
   int Tree::right(int i) {
 	Node *member = find(i, _root);
 	if (member==NULL)
-	  throw std::string("The number " + std:: to_string(i) + "have no right");
+	  throw std::string("The number " + std:: to_string(i) + " have no right");
 	Node *theRight = member->getRight();
 	if (theRight==NULL)
-	  throw std::string("The number " + std:: to_string(i) + "have no right");
+	  throw std::string("The number " + std:: to_string(i) + " have no right");
 	return theRight->getData();
   }
 
   int Tree::left(int i) {
 	Node *member = find(i, _root);
 	if (member==NULL)
-	  throw std::string("The number " + std:: to_string(i) + "have no left");
+	  throw std::string("The number " + std:: to_string(i) + " have no left");
 	Node *theLeft = member->getLeft();
 	if (theLeft==NULL)
-	  throw std::string("The number " + std:: to_string(i) + "have no left");
+	  throw std::string("The number " + std:: to_string(i) + " have no left");
 	return theLeft->getData();
   }
 
