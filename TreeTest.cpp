@@ -21,8 +21,8 @@ int main() {
   threetree.insert(5).insert(3).insert(7);
   rightTree.insert(1).insert(2).insert(3).insert(4).insert(5);
   atbashTree.insert(1).insert(7).insert(2).insert(6).insert(3).insert(5).insert(4);
-  fullTree.insert(20).insert(10).insert(30).insert(5).insert(15).insert(25).insert(40).insert(1).insert(6).insert(11).insert(16).insert(21).insert(26).insert(31).insert(46);  
-  
+  /*fullTree.insert(20).insert(10).insert(30).insert(5).insert(15).insert(25).insert(40).insert(1).insert(6).insert(11).insert(16).insert(21).insert(26).insert(31).insert(46);  
+  */
   badkan::TestCase tc("Binary tree");
   
   /* Empty tree test */
@@ -96,16 +96,16 @@ int main() {
   .CHECK_THROWS(atbashTree.parent(100))
   .CHECK_OK (atbashTree.print())
 
-  /* Full tree tests*/
+  /* Full tree tests
   .CHECK_EQUAL (fullTree.size(), 15) 
   .CHECK_EQUAL (fullTree.root(), 20)
-  .CHECK_OK (fullTree.remove(40)) /*remove node 40*/
+  .CHECK_OK (fullTree.remove(40)) remove node 40
   .CHECK_EQUAL (fullTree.parent(46), 31)
   .CHECK_EQUAL (fullTree.parent(31), 30)
   .CHECK_THROWS(fullTree.left(31))
   .CHECK_THROWS(fullTree.remove(40))
   .CHECK_EQUAL (fullTree.contains(10), false)  
-  .CHECK_OK (fullTree.remove(10)) /* remove node 10*/
+  .CHECK_OK (fullTree.remove(10)) remove node 10
   .CHECK_EQUAL (fullTree.parent(5), 6)
   .CHECK_EQUAL (fullTree.parent(15), 6)
   .CHECK_EQUAL (fullTree.parent(1), 5)
@@ -114,7 +114,7 @@ int main() {
   .CHECK_EQUAL (fullTree.contains(10), false)
   .CHECK_THROWS(fullTree.right(16))
   .CHECK_THROWS(fullTree.left(16))
-  .CHECK_OK (fullTree.remove(20)) /*remove root*/ 
+  .CHECK_OK (fullTree.remove(20)) remove root 
   .CHECK_EQUAL (fullTree.root(), 16)
   .CHECK_EQUAL (fullTree.right(16), 30)
   .CHECK_EQUAL (fullTree.left(16), 6)
@@ -122,12 +122,12 @@ int main() {
   .CHECK_EQUAL (fullTree.left(15), 11)
   .CHECK_THROWS(fullTree.remove(20))
   .CHECK_EQUAL (fullTree.contains(10), false)
-  .CHECK_OK (fullTree.insert(50)) /*insert a new node*/ 
+  .CHECK_OK (fullTree.insert(50)) insert a new node 
   .CHECK_THROWS(fullTree.insert(50))
   .CHECK_EQUAL (fullTree.right(46), 50)
   .CHECK_THROWS(fullTree.left(46))
   .CHECK_EQUAL (fullTree.size(), 13)
-  .CHECK_OK (fullTree.print()) /* print*/
+  .CHECK_OK (fullTree.print())  print*/
 
   
 
