@@ -62,7 +62,7 @@ int main() {
   .CHECK_OK (rightTree.remove(2))
   .CHECK_OK (rightTree.remove(1))
   .CHECK_EQUAL (rightTree.size(), 0)
-  .CHECK_THROWS(rightTree.contains(1))
+  .CHECK_EQUAL (rightTree.contains(1), false)
   .CHECK_OK    (rightTree.print())
 
   /* Atbash tree tests*/
@@ -70,7 +70,7 @@ int main() {
   .CHECK_THROWS(atbashTree.remove(1))
   .CHECK_EQUAL (atbashTree.parent(2), 7)
   .CHECK_EQUAL (atbashTree.right(2), 6)
-  .CHECK_THROWS(atbashTree.right(2))
+  /* */
   .CHECK_OK (atbashTree.remove(7))
   .CHECK_THROWS(atbashTree.remove(7))
   .CHECK_EQUAL (atbashTree.right(2), 6)
